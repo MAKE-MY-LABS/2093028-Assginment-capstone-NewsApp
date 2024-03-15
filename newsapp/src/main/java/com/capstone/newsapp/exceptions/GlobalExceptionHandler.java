@@ -18,6 +18,13 @@ public class GlobalExceptionHandler {
 
     private static final Logger logger = LogManager.getLogger(GlobalExceptionHandler.class);
 
+    // handle ArticalAlreadyExistsException
+    @ExceptionHandler(ArticalAlreadyExistsException.class)
+    public ResponseEntity<String> handleArticalAlreadyExistsException(ArticalAlreadyExistsException exception) {
+        logger.error("ArticalAlreadyExistsException occurred: {}", exception.getMessage());
+        return ResponseEntity.badRequest().body(exception.getMessage());
+    }
+
     @ExceptionHandler(EmailIdAlreadyExistsException.class)
     public ResponseEntity<String> handleEmailIdAlreadyExistsException(EmailIdAlreadyExistsException exception) {
         logger.error("EmailIdAlreadyExistsException occurred: {}", exception.getMessage());
