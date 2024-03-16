@@ -1,0 +1,62 @@
+<!-- user defined login screen using bootstrap having login and register buttons with actions -->
+<!-- login with emailid, password input field in center of the screen with angular reactive form -->
+<!-- register with emailid, password, confirm password input fields in center of the screen with angular reactive form -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <div class="form-group">
+            <label for="emailId">Email address</label>
+            <input type="email" class="form-control" id="emailId" formControlName="emailId" placeholder="Enter email">
+            <div *ngIf="loginForm.controls['emailId'].invalid && (loginForm.controls['emailId'].dirty || loginForm.controls['emailId'].touched)" class="text-danger">
+                Valid email is required
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" formControlName="password" placeholder="Password">
+            <div *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)" class="text-danger">
+                Password is required
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
+    </form>
+    </div>
+    <div class="col-md-6">
+      <h2>Register</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="saveUserRegistration()">
+        <div class="form-group">
+            <label for="username">User name</label>
+            <input type="text" class="form-control" id="username" formControlName="username" placeholder="Enter username">
+            <div *ngIf="registerForm.controls['username'].invalid && (registerForm.controls['username'].dirty || registerForm.controls['username'].touched)" class="text-danger">
+                Username is required
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="emailId">Email address</label>
+            <input type="email" class="form-control" id="emailId" formControlName="emailId" placeholder="Enter email">
+            <div *ngIf="registerForm.controls['emailId'].invalid && (registerForm.controls['emailId'].dirty || registerForm.controls['emailId'].touched)" class="text-danger">
+                Valid email is required
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" formControlName="password" placeholder="Enter password">
+            <div *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)" class="text-danger">
+                Password is required
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="mobileNumber">Mobile Number</label>
+            <input type="tel" class="form-control" id="mobileNumber" formControlName="mobileNumber" placeholder="Enter mobile number">
+            <div *ngIf="registerForm.controls['mobileNumber'].invalid && (registerForm.controls['mobileNumber'].dirty || registerForm.controls['mobileNumber'].touched)" class="text-danger">
+                Valid mobile number is required
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Register</button>
+    </form>
+    </div>
+    </div>
+</div>
