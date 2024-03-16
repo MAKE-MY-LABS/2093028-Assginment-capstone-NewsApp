@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
       const email = this.loginForm.value.emailId;
       const password = this.loginForm.value.password;
       this.loginService.login(email, password).subscribe({
-        next: (response) => {
+        next: (response: string) => {
           // Handle successful login
           // alert user login successful
           // store token in local storage
@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/home']);
 
         },
-        error: (error) => {
+        error: (error: any) => {
           // Handle login error
           // alert user login failed
           alert('Login failed');
