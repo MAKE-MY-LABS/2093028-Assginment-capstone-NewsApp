@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from './../../services/login.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NGXLogger } from 'ngx-logger';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private loginService: LoginService,
     // add router dependency
-    private router: Router
+    private router: Router,
+    private logger: NGXLogger  // inject NGXLogger
   ) { }
 
   ngOnInit() {
@@ -47,15 +49,16 @@ export class LoginComponent implements OnInit {
           // alert user login successful
           // store token in local storage
           localStorage.setItem('token', response);
-          alert('Login successful');
+          this.logger.info('Login successful');  // log info message
           // add navigation to home page
-          this.router.navigate(['/home']);
-
+          this.router.navigate(['/capstone-news-app/home/articles']);
+          alert('Login successful');
         },
         error: (error: any) => {
           // Handle login error
           // alert user login failed
           alert('Login failed');
+          this.logger.error('Login failed', error);  // log error message
           //clear local storage
           localStorage.removeItem('token');
         }
@@ -73,6 +76,7 @@ export class LoginComponent implements OnInit {
           // alert user registration successful
           // store token in local storage
           alert('Registration successful');
+          this.logger.info('Registration successful');  // log info message
           //clear form registration form
           this.registerForm.reset();
         },
@@ -80,6 +84,7 @@ export class LoginComponent implements OnInit {
           // Handle registration error
           // alert user registration failed
           alert('Registration failed');
+          this.logger.error('Registration failed', error);  // log error message
           //clear local storage
           localStorage.removeItem('token');
         }

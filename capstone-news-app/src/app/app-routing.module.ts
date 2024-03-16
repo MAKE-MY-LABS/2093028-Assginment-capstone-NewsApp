@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CheckTokenGuard } from './utility/check-token.guard';
 
 const routes: Routes = [
-  
+
   // add login route usinf loginmodule lazy loading
   {
     path: 'login',
@@ -11,7 +11,7 @@ const routes: Routes = [
   },
   // add home route using home module lazy loading-using canactivate guard checktokengaurd to protect the route 
   {
-    path: 'home',
+    path: 'capstone-news-app',
     loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule),
     canActivate: [CheckTokenGuard]
   },
@@ -21,7 +21,7 @@ const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full'
   },
-  
+
 ];
 
 @NgModule({

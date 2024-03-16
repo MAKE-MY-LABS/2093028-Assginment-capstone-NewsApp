@@ -4,6 +4,7 @@ import { LoginService } from './../../services/login.service';
 import { of, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/utility/shared.module';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -17,7 +18,8 @@ describe('LoginComponent', () => {
       declarations: [LoginComponent],
       imports: [
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        SharedModule
       ],
       providers: [
         { provide: LoginService, useValue: jasmine.createSpyObj('LoginService', ['login', 'register']) },
@@ -60,7 +62,7 @@ describe('LoginComponent', () => {
 
     component.login();
 
-    expect(router.navigate).toHaveBeenCalledWith(['/home']);
+    expect(router.navigate).toHaveBeenCalledWith(['/capstone-news-app/home/articles']);
   });
 
   it('should handle login error', () => {

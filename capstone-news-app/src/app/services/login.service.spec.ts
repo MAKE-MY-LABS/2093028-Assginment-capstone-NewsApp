@@ -34,7 +34,7 @@ describe('LoginService', () => {
   });
 
   it('should call the login API and return the result', () => {
-    const mockResponse =  '12345' ;
+    const mockResponse = '12345';
     const emailId = 'test@example.com';
     const password = 'password';
 
@@ -50,5 +50,18 @@ describe('LoginService', () => {
     expect(loggerSpy.debug.calls.first().args[1]).toBe(emailId, 'spy method was called with right argument');
   });
 
-  
+  it('should call http.post with correct URL and data when register is called', () => {
+    const user = {
+      emailId: 'test@test.com',
+      password: 'password'
+    };
+
+    service.register(user).subscribe();
+
+    const req = httpMock.expectOne(`${environment.apiUrl}user/save`);
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual(user);
+    expect(req.request.responseType).toBe('text');
+  });
+
 });
