@@ -17,6 +17,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
+/**
+ * Represents a news source.
+ */
 @Data
 @Document(collection = "source")
 @NoArgsConstructor

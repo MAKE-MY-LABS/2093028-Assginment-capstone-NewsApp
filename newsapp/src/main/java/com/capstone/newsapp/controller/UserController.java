@@ -29,6 +29,10 @@ import org.apache.logging.log4j.Logger;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+/**
+ * The UserController class handles the HTTP requests related to user operations.
+ * It provides endpoints for user login and user registration.
+ */
 @RestController
 @RequestMapping("/api/v1/user")
 public class UserController {
@@ -38,6 +42,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * Validates the user with the given emailId and password.
+     *
+     * @param user The user object containing the emailId and password.
+     * @return A ResponseEntity containing a string representation of the validation result.
+     */
     @PostMapping("/login")
     public ResponseEntity<String> validateUser(@RequestBody User user) {
         logger.info("Validating user with emailId: {}", user.getEmailId());
@@ -51,6 +61,15 @@ public class UserController {
         }
     }
 
+    /**
+     * Saves a user in the system.
+     *
+     * @param user The user object to be saved.
+     * @return ResponseEntity<String> The response entity indicating the status of the save operation.
+     *         If the user is saved successfully, it returns a response entity with HTTP status 200 (OK)
+     *         and a success message. If the user already exists, it returns a response entity with
+     *         HTTP status 400 (Bad Request) and an error message.
+     */
     @PostMapping("/save")
     public ResponseEntity<String> saveUser(@RequestBody User user) {
         try {
@@ -63,8 +82,12 @@ public class UserController {
         }
     }
 
-    // create generate token method using jwt
-    // use jwt to generate token with emailId and return the token use jwt builder to gernate token
+    /**
+     * Generates a token using JWT for the given emailId.
+     *
+     * @param emailId The emailId for which the token needs to be generated.
+     * @return The generated token as a string.
+     */
     private String generateToken(String emailId) {
         return Jwts.builder().setSubject(emailId).signWith(SignatureAlgorithm.HS256, "CTS-NEWSAPP").compact();
     }

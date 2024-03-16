@@ -13,14 +13,32 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Represents a user in the system.
+ */
 @Data
 @Document(collection = "user")
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
+    /**
+     * The email ID of the user.
+     */
     @Id
     private String emailId;
+
+    /**
+     * The password of the user.
+     */
     private String password;
+
+    /**
+     * The username of the user.
+     */
     private String userName;
+
+    /**
+     * The mobile number of the user.
+     */
     private String mobileNumber;
 }

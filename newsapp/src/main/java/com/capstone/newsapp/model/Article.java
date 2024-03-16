@@ -27,20 +27,58 @@ import lombok.NoArgsConstructor;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
+/**
+ * Represents an article in the news application.
+ */
 @Data
 @Document(collection = "article")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Article {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
-    private Source source;
-    private String author;
-    private String title;
-    private String description;
-    private String url;
-    private String urlToImage;
-    private String publishedAt;
-    private String content;
+  /**
+   * The unique identifier of the article.
+   */
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
+
+  /**
+   * The source of the article.
+   */
+  private Source source;
+
+  /**
+   * The author of the article.
+   */
+  private String author;
+
+  /**
+   * The title of the article.
+   */
+  private String title;
+
+  /**
+   * The description of the article.
+   */
+  private String description;
+
+  /**
+   * The URL of the article.
+   */
+  private String url;
+
+  /**
+   * The URL to the image associated with the article.
+   */
+  private String urlToImage;
+
+  /**
+   * The published date and time of the article.
+   */
+  private String publishedAt;
+
+  /**
+   * The content of the article.
+   */
+  private String content;
 }

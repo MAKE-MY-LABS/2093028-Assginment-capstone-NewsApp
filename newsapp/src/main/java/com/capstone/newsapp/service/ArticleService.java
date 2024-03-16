@@ -10,15 +10,56 @@ import java.util.Optional;
 
 import com.capstone.newsapp.exceptions.ArticalAlreadyExistsException;
 import com.capstone.newsapp.model.Article;
+import com.capstone.newsapp.model.ArticleList;
 
+/**
+ * The ArticleService interface provides methods to interact with articles.
+ */
 public interface ArticleService {
+    
+    /**
+     * Retrieves all articles.
+     *
+     * @return a list of all articles
+     */
     public List<Article> getAllArticles();
+    
+    /**
+     * Retrieves an article by its ID.
+     *
+     * @param id the ID of the article
+     * @return an optional containing the article, or an empty optional if not found
+     */
     public Optional<Article> getArticleById(String id);
+    
+    /**
+     * Saves an article.
+     *
+     * @param article the article to be saved
+     * @return the saved article
+     * @throws ArticalAlreadyExistsException if the article already exists
+     */
     public Article saveArticle(Article article) throws ArticalAlreadyExistsException;
-    public void deleteArticleById(String id);
-    // get latest articles from api return list of articles
-    // search latest articles from api by keyword list of articles
-    public List<Article> getLatestArticles();
-    public List<Article> searchLatestArticles(String keyword);
-
+    
+    /**
+     * Deletes an article by its ID.
+     *
+     * @param id the ID of the article to be deleted
+     */
+    public void deleteArticleById(int id);
+    
+    /**
+     * Retrieves the latest articles from the API.
+     *
+     * @return a list of the latest articles
+     */
+    public ArticleList getLatestArticles();
+    
+    /**
+     * Searches the latest articles from the API by keyword.
+     *
+     * @param keyword the keyword to search for
+     * @return a list of articles matching the keyword
+     */
+    public ArticleList searchLatestArticles(String keyword);
 }

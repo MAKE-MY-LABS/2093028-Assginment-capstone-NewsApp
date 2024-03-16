@@ -21,6 +21,14 @@ import com.capstone.newsapp.repository.UserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * This class implements the UserService interface and provides the implementation for the user-related operations.
+ * It interacts with the UserRepository to perform CRUD operations on User entities.
+ */
+/**
+ * This class implements the UserService interface and provides the implementation for the user-related operations.
+ * It interacts with the UserRepository to perform CRUD operations on User entities.
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -29,6 +37,13 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Validates a user with the given email ID and password.
+     *
+     * @param emailId  the email ID of the user
+     * @param password the password of the user
+     * @return an Optional containing the validated user if found, otherwise an empty Optional
+     */
     @Override
     public Optional<User> validateUser(String emailId, String password) {
         logger.info("Validating user with emailId: {}", emailId);
@@ -43,6 +58,9 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * Represents a user in the system.
+     */
     @Override
     public User saveUser(User user) throws EmailIdAlreadyExistsException {
         logger.info("Saving user with emailId: {}", user.getEmailId());
