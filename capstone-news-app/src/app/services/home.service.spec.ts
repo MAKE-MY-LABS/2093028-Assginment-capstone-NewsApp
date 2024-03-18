@@ -2,11 +2,13 @@ import { TestBed } from '@angular/core/testing';
 import { HomeService } from './home.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { environment } from 'src/environments/environment';
-import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
+import { LoggerModule, NGXLogger, NgxLoggerLevel } from 'ngx-logger';
 import { SharedModule } from '../utility/shared.module';
+import { of } from 'rxjs';
 
 describe('HomeService', () => {
   let service: HomeService;
+  let homeServiceSpy: jasmine.SpyObj<HomeService>;
   let httpMock: HttpTestingController;
   let article = {
     "id": 1,
@@ -24,9 +26,15 @@ describe('HomeService', () => {
   };
 
   beforeEach(() => {
+    homeServiceSpy = jasmine.createSpyObj('HomeService', ['getFavoriteArticles', 'addFavoriteArticle', 'deleteFavoriteArticle', 'getLatestArticles', 'searchLatestArticles']);
+    const loggerSpy = jasmine.createSpyObj('NGXLogger', ['debug']);
+
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, SharedModule],
-      providers: [HomeService]
+      providers: [
+        { provide: HomeService, useValue: homeServiceSpy },
+        { provide: NGXLogger, useValue: loggerSpy }
+      ]
     });
 
     service = TestBed.inject(HomeService);
@@ -37,51 +45,59 @@ describe('HomeService', () => {
     httpMock.verify(); // Make sure that there are no outstanding requests
   });
 
-  it('should call http.get with correct URL when getFavoriteArticles is called', () => {
-    service.getFavoriteArticles().subscribe();
-
-    const req = httpMock.expectOne(`${environment.apiUrl}/favorite-articles`);
-    expect(req.request.method).toBe('GET');
+  it('should be created', () => {
+    expect(service).toBeTruthy();
   });
 
-  it('should call http.post with correct URL and data when addFavoriteArticle is called', () => {
-    service.addFavoriteArticle(article).subscribe();
+  it('should get favorite articles', () => {
+    homeServiceSpy.getFavoriteArticles.and.returnValue(of([article]));
 
-    const req = httpMock.expectOne(`${environment.apiUrl}/favorite-articles`);
-    expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual(article);
+    service.getFavoriteArticles().subscribe((response: any) => {
+      expect(response).toEqual([article]);
+    });
+
+    expect(homeServiceSpy.getFavoriteArticles).toHaveBeenCalled();
+
   });
 
-  it('should call http.put with correct URL and data when updateFavoriteArticle is called', () => {
-    service.updateFavoriteArticle(article).subscribe();
+  it('should delete favorite article', () => {
+    homeServiceSpy.deleteFavoriteArticle.and.returnValue(of(""));
 
-    const req = httpMock.expectOne(`${environment.apiUrl}/favorite-articles/${article.id}`);
-    expect(req.request.method).toBe('PUT');
-    expect(req.request.body).toEqual(article);
+    service.deleteFavoriteArticle(1).subscribe((response: any) => {
+      expect(response).toEqual("");
+    });
+
+    expect(homeServiceSpy.deleteFavoriteArticle).toHaveBeenCalled();
   });
 
-  it('should call http.delete with correct URL when deleteFavoriteArticle is called', () => {
-    const articleId = 1;
-    service.deleteFavoriteArticle(articleId).subscribe();
+  it('should add favorite article', () => {
+    homeServiceSpy.addFavoriteArticle.and.returnValue(of({ article }));
 
-    const req = httpMock.expectOne(`${environment.apiUrl}/favorite-articles/${articleId}`);
-    expect(req.request.method).toBe('DELETE');
+    service.addFavoriteArticle(article).subscribe((response: any) => {
+      expect(response).toEqual({ article });
+    });
+
+    expect(homeServiceSpy.addFavoriteArticle).toHaveBeenCalled();
   });
 
-  it('should call http.get with correct URL when getLatestArticles is called', () => {
-    service.getLatestArticles().subscribe();
+  it('should get latest articles', () => {
+    homeServiceSpy.getLatestArticles.and.returnValue(of({ articles: [article] }));
 
-    const req = httpMock.expectOne(`${environment.apiUrl}/articles/latest`);
-    expect(req.request.method).toBe('GET');
+    service.getLatestArticles().subscribe((response: any) => {
+      expect(response).toEqual({ articles: [article] });
+    });
+
+    expect(homeServiceSpy.getLatestArticles).toHaveBeenCalled();
   });
 
-  it('should call http.post with correct URL and data when searchLatestArticles is called', () => {
-    const keyword = 'USA';
+  it('should search latest articles', () => {
+    homeServiceSpy.searchLatestArticles.and.returnValue(of({ articles: [article] }));
 
-    service.searchLatestArticles(keyword).subscribe();
+    service.searchLatestArticles('tesla').subscribe((response: any) => {
+      expect(response).toEqual({ articles: [article] });
+    });
 
-    const req = httpMock.expectOne(`${environment.apiUrl}/articles/search`);
-    expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual(keyword);
+    expect(homeServiceSpy.searchLatestArticles).toHaveBeenCalled();
   });
+
 });

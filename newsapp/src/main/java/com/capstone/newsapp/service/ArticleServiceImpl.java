@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.beans.factory.annotation.Value;
 
-
 import com.capstone.newsapp.exceptions.ArticalAlreadyExistsException;
 import com.capstone.newsapp.model.Article;
 import com.capstone.newsapp.model.ArticleList;
@@ -55,7 +54,8 @@ public class ArticleServiceImpl implements ArticleService {
      * Retrieves an article by its ID.
      *
      * @param id The ID of the article.
-     * @return An Optional containing the article, or an empty Optional if not found.
+     * @return An Optional containing the article, or an empty Optional if not
+     *         found.
      */
     @Override
     public Optional<Article> getArticleById(String id) {
@@ -68,7 +68,8 @@ public class ArticleServiceImpl implements ArticleService {
      *
      * @param article The article to be saved.
      * @return The saved article.
-     * @throws ArticalAlreadyExistsException If an article with the same ID already exists.
+     * @throws ArticalAlreadyExistsException If an article with the same ID already
+     *                                       exists.
      */
     @Override
     public Article saveArticle(Article article) throws ArticalAlreadyExistsException {
@@ -86,9 +87,9 @@ public class ArticleServiceImpl implements ArticleService {
      * @param id The ID of the article to be deleted.
      */
     @Override
-    public void deleteArticleById(int id) {
+    public void deleteArticleById(String id) {
         logger.info("Deleting article with id: {}", id);
-        articleRepository.deleteById(String.valueOf(id));
+        articleRepository.deleteById(id);
     }
 
     /**
@@ -102,7 +103,7 @@ public class ArticleServiceImpl implements ArticleService {
         RestTemplate restTemplate = new RestTemplate();
         String url = apiUrl + "top-headlines?country=us&category=business&apiKey=" + apiKey;
         logger.info("Fetching latest articles from: {}", url);
-        ArticleList articleList = restTemplate.getForObject(url,ArticleList.class);
+        ArticleList articleList = restTemplate.getForObject(url, ArticleList.class);
         return articleList;
     }
 
@@ -116,12 +117,10 @@ public class ArticleServiceImpl implements ArticleService {
     public ArticleList searchLatestArticles(String keyword) {
         logger.info("Searching latest articles with keyword: {}", keyword);
         RestTemplate restTemplate = new RestTemplate();
-        String url = apiUrl + "everything?q=" + keyword + "&from=2024-02-14&sortBy=publishedAt&apiKey=" + apiKey;
+        String url = apiUrl + "everything?q=" + keyword + "&from=2024-02-25&sortBy=publishedAt&apiKey=" + apiKey;
         logger.info("Searching latest articles from: {}", url);
-        ArticleList articleList = restTemplate.getForObject(url,ArticleList.class);
+        ArticleList articleList = restTemplate.getForObject(url, ArticleList.class);
         return articleList;
     }
 
 }
-
-

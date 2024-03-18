@@ -16,32 +16,27 @@ export class HomeService {
 
   getFavoriteArticles(): Observable<any> {
     this.logger.info('Getting favorite articles');
-    return this.http.get(`${this.apiUrl}/favorite-articles`);
+    return this.http.get(`${this.apiUrl}favorite-articles`);
   }
 
   addFavoriteArticle(article: any): Observable<any> {
     this.logger.info('Adding favorite article', article);
-    return this.http.post(`${this.apiUrl}/favorite-articles`, article);
-  }
-
-  updateFavoriteArticle(article: any): Observable<any> {
-    this.logger.info('Updating favorite article', article);
-    return this.http.put(`${this.apiUrl}/favorite-articles/${article.id}`, article);
+    return this.http.post(`${this.apiUrl}favorite-articles`, article);
   }
 
   deleteFavoriteArticle(articleId: number): Observable<any> {
     this.logger.info('Deleting favorite article', articleId);
-    return this.http.delete(`${this.apiUrl}/favorite-articles/${articleId}`);
+    return this.http.delete(`${this.apiUrl}favorite-articles/${articleId}`, { responseType: 'text' });
   }
 
   // Latest Articles
   getLatestArticles(): Observable<any> {
     this.logger.info('Getting latest articles');
-    return this.http.get(`${this.apiUrl}/articles/latest`);
+    return this.http.get(`${this.apiUrl}articles/latest`);
   }
 
   searchLatestArticles(keyword: string): Observable<any> {
     this.logger.info('Searching latest articles', keyword);
-    return this.http.post(`${this.apiUrl}/articles/search`, keyword);
+    return this.http.post(`${this.apiUrl}articles/search`, keyword);
   }
 }

@@ -25,8 +25,10 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
 /**
- * This class is a filter that intercepts incoming requests and performs authentication and authorization checks.
- * It extends the OncePerRequestFilter class, which ensures that the filter is only applied once per request.
+ * This class is a filter that intercepts incoming requests and performs
+ * authentication and authorization checks.
+ * It extends the OncePerRequestFilter class, which ensures that the filter is
+ * only applied once per request.
  */
 @Component
 public class AppFilter extends OncePerRequestFilter {
@@ -36,9 +38,12 @@ public class AppFilter extends OncePerRequestFilter {
     /**
      * Filters the incoming request and response.
      * 
-     * @param request      the HttpServletRequest object representing the incoming request
-     * @param response     the HttpServletResponse object representing the outgoing response
-     * @param filterChain  the FilterChain object for invoking the next filter in the chain
+     * @param request     the HttpServletRequest object representing the incoming
+     *                    request
+     * @param response    the HttpServletResponse object representing the outgoing
+     *                    response
+     * @param filterChain the FilterChain object for invoking the next filter in the
+     *                    chain
      * @throws ServletException if an error occurs while processing the request
      * @throws IOException      if an I/O error occurs while processing the request
      */
@@ -50,12 +55,19 @@ public class AppFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
+        if (request.getMethod().equals("OPTIONS")) {
+            response.setHeader("Allow", "GET, POST, PUT, DELETE, OPTIONS");
+            response.setStatus(HttpServletResponse.SC_OK);
+            filterChain.doFilter(request, response);
+            return;
+        }
         String token = request.getHeader("Authorization");
         if (token == null || !token.startsWith("Bearer ")) {
             throw new ServletException("Invalid token");
         }
         try {
-            Claims claims = Jwts.parser().setSigningKey("CTS-NEWSAPP").parseClaimsJws(token.replace("Bearer ", "")).getBody();
+            Claims claims = Jwts.parser().setSigningKey("CTS-NEWSAPP").parseClaimsJws(token.replace("Bearer ", ""))
+                    .getBody();
             request.setAttribute("claims", claims);
         } catch (Exception exception) {
             throw new ServletException("Invalid token");
@@ -64,4 +76,3 @@ public class AppFilter extends OncePerRequestFilter {
     }
 
 }
-

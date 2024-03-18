@@ -6,21 +6,15 @@ package com.capstone.newsapp.controller;
  * use @GetMapping and @postMapping annotation to specify the url for the methods
  * use route /api/v1/articles for the methods
  */
-import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capstone.newsapp.exceptions.ArticalAlreadyExistsException;
-import com.capstone.newsapp.model.Article;
 import com.capstone.newsapp.model.ArticleList;
 import com.capstone.newsapp.service.ArticleService;
 
@@ -58,12 +52,9 @@ public class ArticlesController {
      * @return ResponseEntity containing the search results
      */
     @PostMapping("/search")
-    public ResponseEntity<ArticleList> searchLatestArticles(@RequestParam String keyword) {
+    public ResponseEntity<ArticleList> searchLatestArticles(@RequestBody String keyword) {
         logger.info("Searching the latest articles by keyword: {}", keyword);
         ArticleList latestArticles = articleService.searchLatestArticles(keyword);
         return ResponseEntity.ok(latestArticles);
     }
 }
-
-
-

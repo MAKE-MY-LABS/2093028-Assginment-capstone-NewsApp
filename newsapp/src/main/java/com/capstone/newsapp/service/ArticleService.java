@@ -16,14 +16,14 @@ import com.capstone.newsapp.model.ArticleList;
  * The ArticleService interface provides methods to interact with articles.
  */
 public interface ArticleService {
-    
+
     /**
      * Retrieves all articles.
      *
      * @return a list of all articles
      */
     public List<Article> getAllArticles();
-    
+
     /**
      * Retrieves an article by its ID.
      *
@@ -31,7 +31,7 @@ public interface ArticleService {
      * @return an optional containing the article, or an empty optional if not found
      */
     public Optional<Article> getArticleById(String id);
-    
+
     /**
      * Saves an article.
      *
@@ -40,21 +40,21 @@ public interface ArticleService {
      * @throws ArticalAlreadyExistsException if the article already exists
      */
     public Article saveArticle(Article article) throws ArticalAlreadyExistsException;
-    
+
     /**
      * Deletes an article by its ID.
      *
      * @param id the ID of the article to be deleted
      */
-    public void deleteArticleById(int id);
-    
+    public void deleteArticleById(String id);
+
     /**
      * Retrieves the latest articles from the API.
      *
      * @return a list of the latest articles
      */
     public ArticleList getLatestArticles();
-    
+
     /**
      * Searches the latest articles from the API by keyword.
      *

@@ -33,7 +33,6 @@ import static org.mockito.Mockito.*;
  */
 public class ArticleServiceImplTest {
 
-    
     @InjectMocks
     private ArticleServiceImpl articleService;
 
@@ -45,55 +44,66 @@ public class ArticleServiceImplTest {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.openMocks(this);
-        // craete artical  object with mock data using {
-    //   "id": 0,
-    //   "source": {
-    //     "id": null,
-    //     "name": "CNBC"
-    //   },
-    //   "author": "Alex Harring",
-    //   "title": "Stock futures are little changed after strong inflation data spooks investors: Live updates - CNBC",
-    //   "description": "The three major indexes finished Thursday's session lower.",
-    //   "url": "https://www.cnbc.com/2024/03/14/stock-market-today-live-updates.html",
-    //   "urlToImage": "https://image.cnbcfm.com/api/v1/image/107386389-1710266151994-NYSE_Traders-Photo-20240312-CC-1.jpg?v=1710331621&w=1920&h=1080",
-    //   "publishedAt": "2024-03-15T00:38:00Z",
-    //   "content": "Stock futures are near flat Thursday night as investors analyzed the fresh batch of corporate earnings and attempted to look beyond the latest inflation reading.\r\nFutures tied to the Dow Jones Indust… [+1866 chars]"
-    // }
+        // craete artical object with mock data using {
+        // "id": 0,
+        // "source": {
+        // "id": null,
+        // "name": "CNBC"
+        // },
+        // "author": "Alex Harring",
+        // "title": "Stock futures are little changed after strong inflation data spooks
+        // investors: Live updates - CNBC",
+        // "description": "The three major indexes finished Thursday's session lower.",
+        // "url":
+        // "https://www.cnbc.com/2024/03/14/stock-market-today-live-updates.html",
+        // "urlToImage":
+        // "https://image.cnbcfm.com/api/v1/image/107386389-1710266151994-NYSE_Traders-Photo-20240312-CC-1.jpg?v=1710331621&w=1920&h=1080",
+        // "publishedAt": "2024-03-15T00:38:00Z",
+        // "content": "Stock futures are near flat Thursday night as investors analyzed
+        // the fresh batch of corporate earnings and attempted to look beyond the latest
+        // inflation reading.\r\nFutures tied to the Dow Jones Indust… [+1866 chars]"
+        // }
 
-     article = new Article();
-    article.setId(0);
-    article.setAuthor("Alex Harring");
-    article.setTitle("Stock futures are little changed after strong inflation data spooks investors: Live updates - CNBC");
-    article.setDescription("The three major indexes finished Thursday's session lower.");
-    article.setUrl("https://www.cnbc.com/2024/03/14/stock-market-today-live-updates.html");
-    article.setUrlToImage("https://image.cnbcfm.com/api/v1/image/107386389-1710266151994-NYSE_Traders-Photo-20240312-CC-1.jpg?v=1710331621&w=1920&h=1080");
-    article.setPublishedAt("2024-03-15T00:38:00Z");
-    article.setContent("Stock futures are near flat Thursday night as investors analyzed the fresh batch of corporate earnings and attempted to look beyond the latest inflation reading.\r\nFutures tied to the Dow Jones Indust… [+1866 chars]");
+        article = new Article();
+        article.setId("0");
+        article.setAuthor("Alex Harring");
+        article.setTitle(
+                "Stock futures are little changed after strong inflation data spooks investors: Live updates - CNBC");
+        article.setDescription("The three major indexes finished Thursday's session lower.");
+        article.setUrl("https://www.cnbc.com/2024/03/14/stock-market-today-live-updates.html");
+        article.setUrlToImage(
+                "https://image.cnbcfm.com/api/v1/image/107386389-1710266151994-NYSE_Traders-Photo-20240312-CC-1.jpg?v=1710331621&w=1920&h=1080");
+        article.setPublishedAt("2024-03-15T00:38:00Z");
+        article.setContent(
+                "Stock futures are near flat Thursday night as investors analyzed the fresh batch of corporate earnings and attempted to look beyond the latest inflation reading.\r\nFutures tied to the Dow Jones Indust… [+1866 chars]");
 
     }
 
-    //tearDown method to release any resources that are allocated in setup method
+    // tearDown method to release any resources that are allocated in setup method
     // and to release memory allocation
     // and to set the object to null
-    
+
     @AfterEach
     public void tearDown() {
         article = null;
     }
 
-
     /**
      * Test case for the deleteArticleById method in the ArticleServiceImpl class.
      * 
-     * This method verifies that the deleteArticleById method correctly deletes an article by its ID.
-     * It mocks the behavior of the articleRepository's deleteById method to do nothing when called with the ID "1".
-     * Then, it calls the deleteArticleById method of the articleService with the ID 1.
-     * Finally, it verifies that the deleteById method of the articleRepository was called exactly once with the ID "1".
+     * This method verifies that the deleteArticleById method correctly deletes an
+     * article by its ID.
+     * It mocks the behavior of the articleRepository's deleteById method to do
+     * nothing when called with the ID "1".
+     * Then, it calls the deleteArticleById method of the articleService with the ID
+     * 1.
+     * Finally, it verifies that the deleteById method of the articleRepository was
+     * called exactly once with the ID "1".
      */
     @Test
     void testDeleteArticleById() {
         doNothing().when(articleRepository).deleteById("1");
-        articleService.deleteArticleById(1);
+        articleService.deleteArticleById("1");
         verify(articleRepository, times(1)).deleteById("1");
     }
 
@@ -107,11 +117,11 @@ public class ArticleServiceImplTest {
         List<Article> result = articleService.getAllArticles();
         assertEquals(2, result.size());
     }
-    
 
     /**
      * Test case for the getLatestArticles method of the ArticleServiceImpl class.
-     * It verifies that the returned ArticleList object is equal to the expected ArticleList object.
+     * It verifies that the returned ArticleList object is equal to the expected
+     * ArticleList object.
      */
     @Test
     void testGetLatestArticles() {
@@ -124,9 +134,11 @@ public class ArticleServiceImplTest {
 
     /**
      * Test case for the saveArticle method in the ArticleServiceImpl class.
-     * It verifies that the saveArticle method correctly saves an article and returns the saved article.
+     * It verifies that the saveArticle method correctly saves an article and
+     * returns the saved article.
      * 
-     * @throws ArticalAlreadyExistsException if the article already exists in the repository
+     * @throws ArticalAlreadyExistsException if the article already exists in the
+     *                                       repository
      */
     @Test
     void testSaveArticle() throws ArticalAlreadyExistsException {
@@ -145,11 +157,11 @@ public class ArticleServiceImplTest {
         Article article12 = new Article();
         article.setTitle("Title");
         article.setAuthor("MAcY");
-        Article article1= new Article();
+        Article article1 = new Article();
         article.setTitle("Title1");
-        article.setId(0);
+        article.setId("0");
         article.setAuthor("MAcY1");
-        articleList.setArticles(Arrays.asList(article,article12, article1));
+        articleList.setArticles(Arrays.asList(article, article12, article1));
 
         when(articleService.searchLatestArticles(keyword)).thenReturn(articleList);
         ArticleList result = articleService.searchLatestArticles(keyword);

@@ -21,7 +21,11 @@ export class GlobalInterceptor implements HttpInterceptor {
       // Token is present, add it to the request headers
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
+          // include other headers if needed for cors preflight
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'
         }
       });
     } else {

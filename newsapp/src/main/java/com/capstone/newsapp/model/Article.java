@@ -40,7 +40,7 @@ public class Article {
    */
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  private String id;
 
   /**
    * The source of the article.
