@@ -15,6 +15,13 @@ export class GlobalInterceptor implements HttpInterceptor {
     private router: Router
   ) { }
 
+  /**
+   * Intercepts HTTP requests and adds the authorization token to the request headers if available.
+   * If the token is not present, it navigates to the login page.
+   * @param request - The HTTP request to be intercepted.
+   * @param next - The next HTTP handler in the chain.
+   * @returns An observable of the HTTP event.
+   */
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const token = localStorage.getItem('token');
     if (token) {

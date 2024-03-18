@@ -8,17 +8,25 @@ import { HomeService } from 'src/app/services/home.service';
   templateUrl: './articles.component.html',
   styleUrls: ['./articles.component.scss']
 })
+/**
+ * Represents the ArticlesComponent class.
+ */
 export class ArticlesComponent implements OnInit {
   selectedArticle: IArticle | null = null;
   articles: IArticle[] = [];
 
   constructor(private homeService: HomeService, private logger: NGXLogger) { }
 
+  /**
+   * Initializes the component and retrieves the articles.
+   */
   ngOnInit(): void {
     this.getArticles();
   }
 
-
+  /**
+   * Retrieves the latest articles from the server.
+   */
   getArticles() {
     this.homeService.getLatestArticles().subscribe((response: { articles: IArticle[] }) => {
       this.articles = response.articles || [];
@@ -26,17 +34,26 @@ export class ArticlesComponent implements OnInit {
     });
   }
 
-  // add method to handle selected article showDetails
+  /**
+   * Sets the selected article to show its details.
+   * @param article - The article to show details for.
+   */
   showDetails(article: IArticle) {
     this.selectedArticle = article;
   }
 
-  // add method to handle selected article closeDetails
+  /**
+   * Closes the details of the selected article.
+   */
   closeDetails() {
     this.selectedArticle = null;
   }
 
-  // add method to get searhlated articles bay keyword from input text
+  /**
+   * Searches for articles based on the provided keyword.
+   * If the keyword is empty, retrieves all articles.
+   * @param keyword - The keyword to search for.
+   */
   searchArticles(keyword: string) {
     if (keyword && keyword !== '') {
       this.logger.debug('Searching articles with keyword:', keyword);
@@ -50,9 +67,11 @@ export class ArticlesComponent implements OnInit {
     }
   }
 
-  // add method to handle favorite article
+  /**
+   * Adds the specified article to favorites.
+   * @param article - The article to add to favorites.
+   */
   favoriteArticle(article: IArticle) {
-    // get favorite article from the server and assign it to the articles array at the last index with an incremented id
     this.logger.debug('Adding article to favorites:', article);
     this.homeService.getFavoriteArticles().subscribe((response: IArticle[]) => {
       const favoriteArticle: IArticle[] = response || [];
@@ -64,5 +83,4 @@ export class ArticlesComponent implements OnInit {
       });
     });
   }
-
 }

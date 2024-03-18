@@ -6,26 +6,24 @@ import { Router } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
+/**
+ * Represents the HeaderComponent of the application.
+ */
 export class HeaderComponent implements OnInit {
 
   constructor(private router: Router) { }
 
-
+  /**
+   * Lifecycle hook that is called after data-bound properties of a directive are initialized.
+   */
   ngOnInit(): void {
   }
-  //logout function to clear token from local storage
+
+  /**
+   * Clears the token from local storage and navigates to the login page.
+   */
   logout() {
-    // redirect to login page using router
-    // navigate to login page
-    // Example:
-    // import { Router } from '@angular/router';
-    // constructor(private router: Router) { }
-    // logout() {
-    //   localStorage.removeItem('token');
-    //   this.router.navigate(['/login']);
-    // }
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }
-
 }

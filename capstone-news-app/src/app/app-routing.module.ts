@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CheckTokenGuard } from './utility/check-token.guard';
 
+/**
+ * Defines the routes for the application.
+ */
 const routes: Routes = [
 
   // add login route usinf loginmodule lazy loading

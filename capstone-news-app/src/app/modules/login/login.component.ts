@@ -10,6 +10,10 @@ import { NGXLogger } from 'ngx-logger';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+/**
+ * Represents the LoginComponent class.
+ * This component handles the login and registration functionality.
+ */
 export class LoginComponent implements OnInit {
   loginForm: FormGroup = new FormGroup({});
 
@@ -23,6 +27,10 @@ export class LoginComponent implements OnInit {
     private logger: NGXLogger  // inject NGXLogger
   ) { }
 
+  /**
+   * Initializes the component.
+   * Sets up the login and registration forms.
+   */
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       emailId: ['', [Validators.required, Validators.email]],
@@ -37,9 +45,13 @@ export class LoginComponent implements OnInit {
     });
   }
 
-
+  /**
+   * Handles the login functionality.
+   * If the login form is valid, it sends a login request to the server.
+   * If the login is successful, it stores the token in local storage and navigates to the home page.
+   * If there is an error, it displays an alert and logs the error.
+   */
   login() {
-
     if (this.loginForm.valid) {
       const email = this.loginForm.value.emailId;
       const password = this.loginForm.value.password;
@@ -66,6 +78,12 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  /**
+   * Handles the user registration functionality.
+   * If the registration form is valid, it sends a registration request to the server.
+   * If the registration is successful, it displays an alert and logs the success message.
+   * If there is an error, it displays an alert, logs the error, and clears the local storage.
+   */
   saveUserRegistration() {
     if (this.registerForm.valid) {
       const user = this.registerForm.value;
@@ -91,5 +109,4 @@ export class LoginComponent implements OnInit {
       });
     }
   }
-
 }

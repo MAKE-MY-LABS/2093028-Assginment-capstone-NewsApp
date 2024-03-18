@@ -14,15 +14,53 @@
 //     "content": null
 //   }
 
+/**
+ * Represents an article.
+ */
 export interface IArticle {
+    /**
+     * The unique identifier of the article.
+     */
     id: number;
+
+    /**
+     * The source of the article.
+     */
     source: ISource;
+
+    /**
+     * The author of the article.
+     */
     author: string;
+
+    /**
+     * The title of the article.
+     */
     title: string;
+
+    /**
+     * The description of the article.
+     */
     description: string;
+
+    /**
+     * The URL of the article.
+     */
     url: string;
+
+    /**
+     * The URL to the image associated with the article.
+     */
     urlToImage: string;
+
+    /**
+     * The date and time when the article was published.
+     */
     publishedAt: string;
+
+    /**
+     * The content of the article.
+     */
     content: string;
 }
 

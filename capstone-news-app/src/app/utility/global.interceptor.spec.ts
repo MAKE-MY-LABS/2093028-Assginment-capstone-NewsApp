@@ -50,6 +50,9 @@ describe('GlobalInterceptor', () => {
   it('should navigate to login when token is not present', () => {
     localStorage.removeItem('token');
 
+    /**
+     * Spy on the `navigate` method of the router.
+     */
     const navigateSpy = spyOn(router, 'navigate');
 
     httpClient.get('/articles').subscribe();
