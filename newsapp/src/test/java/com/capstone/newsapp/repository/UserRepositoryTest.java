@@ -14,8 +14,6 @@ import static org.mockito.Mockito.*;
 
 public class UserRepositoryTest {
 
-    @InjectMocks
-    private UserRepository userRepository;
 
     @Mock
     private UserRepository userRepositoryMock;
@@ -31,7 +29,7 @@ public class UserRepositoryTest {
         String email = "test@test.com";
         String password = "password";
         when(userRepositoryMock.findByEmailIdAndPassword(email, password)).thenReturn(Optional.of(user));
-        Optional<User> result = userRepository.findByEmailIdAndPassword(email, password);
+        Optional<User> result = userRepositoryMock.findByEmailIdAndPassword(email, password);
         assertEquals(user, result.get());
     }
 }
