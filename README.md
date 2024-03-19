@@ -3,4 +3,4 @@ News App
 
 UI - Angular project -capstone-news-app
 
-APU - sprringboot project -newsapp
+APU - springboot project -newsapp
