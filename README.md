@@ -3,9 +3,9 @@ News App
 
 UI - Angular project -capstone-news-app
 
-APU - springboot project -newsapp
+API - springboot project -newsapp
 
-# Feature in NewsApp
+# Features in NewsApp
 -User Registration
 -User Login
 -List common News articles
