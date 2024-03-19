@@ -32,6 +32,10 @@ public class ArticleServiceImplTest {
         MockitoAnnotations.openMocks(this);
     }
 
+    /**
+     * Test case for the getAllArticles method in the ArticleServiceImpl class.
+     * It verifies that the getAllArticles method returns the correct list of articles.
+     */
     @Test
     public void testGetAllArticles() {
         Article article = new Article();
@@ -45,6 +49,10 @@ public class ArticleServiceImplTest {
         verify(articleRepository, times(1)).findAll();
     }
 
+    /**
+        * Test case for the getArticleById method.
+        * It verifies that the method returns the correct article when given a valid article ID.
+        */
     @Test
     public void testGetArticleById() {
         Article article = new Article();
@@ -58,6 +66,10 @@ public class ArticleServiceImplTest {
         verify(articleRepository, times(1)).findById(article.getId());
     }
 
+    /**
+     * Test case to verify the functionality of saving an article.
+     * @throws ArticalAlreadyExistsException if the article already exists.
+     */
     @Test
     public void testSaveArticle() throws ArticalAlreadyExistsException {
         Article article = new Article();
@@ -72,6 +84,12 @@ public class ArticleServiceImplTest {
         verify(articleRepository, times(1)).save(article);
     }
 
+    /**
+     * Test case to verify the behavior of the saveArticle method when the article already exists.
+     * It creates an Article object with a specific ID and mocks the behavior of the articleRepository.existsById() method
+     * to return true for that ID. Then, it asserts that the saveArticle method throws an ArticalAlreadyExistsException
+     * and verifies that the existsById method was called exactly once with the specified ID.
+     */
     @Test
     public void testSaveArticle_ArticleAlreadyExists() {
         Article article = new Article();
@@ -82,6 +100,10 @@ public class ArticleServiceImplTest {
         verify(articleRepository, times(1)).existsById(article.getId());
     }
 
+    /**
+     * Test case for the deleteArticleById method in the ArticleServiceImpl class.
+     * It verifies that the article with the specified ID is deleted from the repository.
+     */
     @Test
     public void testDeleteArticleById() {
         String id = "1";

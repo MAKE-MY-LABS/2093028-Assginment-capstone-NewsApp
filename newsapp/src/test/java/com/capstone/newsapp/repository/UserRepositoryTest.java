@@ -23,6 +23,10 @@ public class UserRepositoryTest {
         MockitoAnnotations.openMocks(this);
     }
 
+    /**
+     * Test case for the findByEmailIdAndPassword method in the UserRepository class.
+     * It verifies that the method returns the expected User object when provided with a valid email and password.
+     */
     @Test
     void testFindByEmailIdAndPassword() {
         User user = new User();

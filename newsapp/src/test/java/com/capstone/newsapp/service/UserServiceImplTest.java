@@ -29,6 +29,9 @@ public class UserServiceImplTest {
         MockitoAnnotations.openMocks(this);
     }
 
+    /**
+        * Test case for validating a user.
+        */
     @Test
     public void testValidateUser() {
         User user = new User();
@@ -44,6 +47,12 @@ public class UserServiceImplTest {
         verify(userRepository, times(1)).findByEmailIdAndPassword(user.getEmailId(), user.getPassword());
     }
 
+    /**
+     * Test case for the saveUser method in the UserServiceImpl class.
+     * It tests the scenario where a new user is saved successfully.
+     *
+     * @throws EmailIdAlreadyExistsException if the email ID already exists in the repository.
+     */
     @Test
     public void testSaveUser() throws EmailIdAlreadyExistsException {
         User user = new User();
@@ -60,6 +69,10 @@ public class UserServiceImplTest {
         verify(userRepository, times(1)).save(user);
     }
 
+    /**
+     * Test case to verify that the saveUser method throws an EmailIdAlreadyExistsException
+     * when the email ID already exists in the user repository.
+     */
     @Test
     public void testSaveUser_EmailIdAlreadyExists() {
         User user = new User();

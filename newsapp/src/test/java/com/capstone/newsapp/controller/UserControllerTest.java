@@ -31,6 +31,15 @@ public class UserControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
+    /**
+     * Test case to validate the user.
+     * 
+     * This method creates a user object with a test email and password. It then mocks the behavior of the userService's
+     * validateUser method to return an Optional containing the user object. The userController's validateUser method is
+     * called with the user object as a parameter. The method asserts that the HTTP status code of the response entity is
+     * HttpStatus.OK and verifies that the userService's validateUser method is called exactly once with the email and
+     * password of the user object.
+     */
     @Test
     public void testValidateUser() {
         User user = new User();
@@ -45,6 +54,10 @@ public class UserControllerTest {
         verify(userService, times(1)).validateUser(user.getEmailId(), user.getPassword());
     }
 
+    /**
+     * Test case to verify the functionality of saving a user.
+     * @throws EmailIdAlreadyExistsException if the email ID already exists.
+     */
     @Test
     public void testSaveUser() throws EmailIdAlreadyExistsException {
         User user = new User();

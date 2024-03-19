@@ -22,12 +22,24 @@ public class ArticlesControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
+    /**
+        * Test case for the getLatestArticles method.
+        * This test verifies that the getLatestArticles method of the ArticlesController class
+        * calls the getLatestArticles method of the ArticleService class.
+        */
     @Test
     void testGetLatestArticles() {
         articlesController.getLatestArticles();
         verify(articleService).getLatestArticles();
     }
 
+    /**
+        * Test case for searching latest articles.
+        * 
+        * This test verifies that the searchLatestArticles method in the ArticlesController
+        * class correctly calls the searchLatestArticles method in the ArticleService class
+        * with the provided query.
+        */
     @Test
     void testSearchLatestArticles() {
         String query = "tesla";
